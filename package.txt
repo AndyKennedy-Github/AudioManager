@@ -1,0 +1,13 @@
+{
+	"name": "com.andykennedy-github.audiomanager",
+	"version": "1.0.0",
+	"displayName": "Andy's Audio Manager",
+	"description": "Package containing the audio manager/controller",
+	"unity": "2020.2",
+	"author":
+	{
+		"name": "Andy Kennedy",
+		"email": "aek5594@psu.edu",
+		"url": ""
+	}
+}
