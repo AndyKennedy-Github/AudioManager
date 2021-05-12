@@ -18,15 +18,15 @@ namespace aek.Audio
                 {
                     if(Input.GetKeyUp(KeyCode.T))
                     {
-                        ac.PlayAudio(AudioType.ST_01);
+                        ac.PlayAudio(AudioType.ST_01, true);
                     }
                     if (Input.GetKeyUp(KeyCode.G))
                     {
-                        ac.StopAudio(AudioType.ST_01);
+                        ac.StopAudio(AudioType.ST_01, true);
                     }
                     if (Input.GetKeyUp(KeyCode.B))
                     {
-                        ac.RestartAudio(AudioType.ST_01);
+                        ac.RestartAudio(AudioType.ST_01, true);
                     }
 
                     if (Input.GetKeyUp(KeyCode.Y))
@@ -40,6 +40,11 @@ namespace aek.Audio
                     if (Input.GetKeyUp(KeyCode.N))
                     {
                         ac.RestartAudio(AudioType.SFX_01);
+                    }
+
+                    if (Input.GetKeyUp(KeyCode.A))
+                    {
+                        ac.PlayAudio(AudioType.ST_02);
                     }
                 }
 #endif

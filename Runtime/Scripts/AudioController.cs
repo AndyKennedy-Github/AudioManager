@@ -37,11 +37,17 @@ namespace aek.Audio
                 {
                     public AudioAction action;
                     public AudioType type;
+                    public bool fade;
+                    public float delay;
+                    
 
-                    public AudioJob(AudioAction _action, AudioType _type)
+                    public AudioJob(AudioAction _action, AudioType _type, bool _fade, float _delay)
                     {
                         action = _action;
                         type = _type;
+                        fade = _fade;
+                        delay = _delay;
+                       
                     }
                 }
 
@@ -70,17 +76,17 @@ namespace aek.Audio
 #endregion
 
 #region Public Functions
-                public void PlayAudio(AudioType _type)
+                public void PlayAudio(AudioType _type, bool _fade = false, float _delay = 0.0f)
                 {
-                    AddJob(new AudioJob(AudioAction.START, _type));
+                    AddJob(new AudioJob(AudioAction.START, _type, _fade, _delay));
                 }
-                public void StopAudio(AudioType _type)
+                public void StopAudio(AudioType _type, bool _fade = false, float _delay = 0.0f)
                 {
-                    AddJob(new AudioJob(AudioAction.STOP, _type));
+                    AddJob(new AudioJob(AudioAction.STOP, _type, _fade, _delay));
                 }
-                public void RestartAudio(AudioType _type)
+                public void RestartAudio(AudioType _type, bool _fade = false, float _delay = 0.0f)
                 {
-                    AddJob(new AudioJob(AudioAction.RESTART, _type));
+                    AddJob(new AudioJob(AudioAction.RESTART, _type, _fade, _delay));
                 }
                 public AudioClip GetAudioClipFromAudioTrack(AudioType _type, AudioTrack _track)
                 {
@@ -136,6 +142,8 @@ namespace aek.Audio
 
                 private IEnumerator RunAudioJob(AudioJob _job)
                 {
+                    yield return new WaitForSeconds(_job.delay);
+
                     AudioTrack _track = (AudioTrack)m_AudioTable[_job.type];
                     _track.source.clip = GetAudioClipFromAudioTrack(_job.type, _track);
 
@@ -145,12 +153,35 @@ namespace aek.Audio
                             _track.source.Play();
                             break;
                         case AudioAction.STOP:
-                            _track.source.Stop();
+                            if(!_job.fade)
+                            {
+                                _track.source.Stop();
+                            }
                             break;
                         case AudioAction.RESTART:
                             _track.source.Stop();
                             _track.source.Play();
                             break;
+                    }
+
+                    if(_job.fade)
+                    {
+                        float _initial = _job.action == AudioAction.START || _job.action == AudioAction.RESTART ? 0.0f : 1.0f;
+                        float _target = _initial == 0 ? 1 : 0;
+                        float _duration = 1.0f;
+                        float _timer = 0.0f;
+
+                        while(_timer <= _duration)
+                        {
+                            _track.source.volume = Mathf.Lerp(_initial, _target, _timer / _duration);
+                            _timer += Time.deltaTime;
+                            yield return null;
+                        }
+
+                        if(_job.action == AudioAction.STOP)
+                        {
+                            _track.source.Stop();
+                        }
                     }
 
                     m_JobTable.Remove(_job.type);
@@ -167,6 +198,7 @@ namespace aek.Audio
                     //start job
                     IEnumerator _jobRunner = RunAudioJob(_job);
                     m_JobTable.Add(_job.type, _jobRunner);
+                    StartCoroutine(_jobRunner);
                     Log("Starting job on [" + _job.type + "] with the operation: " + _job.action);
                 }
 

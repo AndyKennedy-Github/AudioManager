@@ -12,6 +12,8 @@ namespace aek.Audio
                 ST_02,
                 SFX_01,
                 SFX_02,
+                OBJ_01,
+                OBJ_02,
                 //.. put custom audio types here
             }
         }
