@@ -4,15 +4,11 @@ using UnityEngine;
 
 namespace aek.Audio
 {
-    namespace UnityCore
-    {
-        namespace Audio
-        {
             public class TestAudio : MonoBehaviour
             {
                 public AudioController ac;
 
-                #region Unity Functions
+#region Unity Functions
 #if UNITY_EDITOR
                 private void Update()
                 {
@@ -48,8 +44,6 @@ namespace aek.Audio
                     }
                 }
 #endif
-                #endregion
+#endregion
             }
         }
-    }
-}

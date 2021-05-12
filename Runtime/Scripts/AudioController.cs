@@ -4,10 +4,7 @@ using UnityEngine;
 
 namespace aek.Audio
 {
-    namespace UnityCore
-    {
-        namespace Audio
-        {
+
             public class AudioController : MonoBehaviour
             {
                 // members
@@ -255,5 +252,4 @@ namespace aek.Audio
             }
 
         }
-    }
-}
+

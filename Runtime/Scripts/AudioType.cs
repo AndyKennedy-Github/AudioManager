@@ -1,10 +1,7 @@
 
 namespace aek.Audio
 {
-    namespace UnityCore
-    {
-        namespace Audio
-        {
+
             public enum AudioType
             {
                 None,
@@ -17,5 +14,4 @@ namespace aek.Audio
                 //.. put custom audio types here
             }
         }
-    }
-}
+
