@@ -9,17 +9,22 @@
 		"email": "aek5594@psu.edu",
 		"url": "https://sites.psu.edu/andykennedy/"
 	},
-		"samples": 
-		[
-			{
+	"files": [
+		"*.md",
+		"*.meta",
+		"*.asmdef",
+		"Samples~",
+		"Editor"
+	],
+	"samples": [
+		{
+			"displayName": "Audio Manager Sample Scene",
 
-				"displayName": "Audio Manager Sample Scene",
+			"description": "Contains the Audio Manager, and an example object with a complete list of sources, clips, and a script containing button input functionality for quick testing.",
 
-				"description": "Contains the Audio Manager, and an example object with a complete list of sources, clips, and a script containing button input functionality for quick testing.",
+			"path": "Samples~/Demo"
 
-				"path": "Samples~/Demo"
-
-			}
-		]
+		}
+	]
 
 }
