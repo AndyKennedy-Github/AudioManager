@@ -18,7 +18,7 @@
 
 				"description": "Contains the Audio Manager, and an example object with a complete list of sources, clips, and a script containing button input functionality for quick testing.",
 
-				"path": "Samples~/TestScene"
+				"path": "Samples/TestScene"
 
 			}
 		]
