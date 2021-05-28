@@ -18,7 +18,6 @@ namespace aek.Audio
         //Holds a reference to all the clips you want to use in the scene
         public List<AudioObject> clips = new List<AudioObject>();
 
-        
         [System.Serializable]
         public class AudioObject
         {
