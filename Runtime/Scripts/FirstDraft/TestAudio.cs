@@ -40,7 +40,7 @@ namespace aek.Audio
 
                     if (Input.GetKeyUp(KeyCode.A))
                     {
-                        ac.PlayAudio(AudioType.ST_02);
+                        ac.PlayAudio(AudioType.OBJ_01);
                     }
                 }
 #endif

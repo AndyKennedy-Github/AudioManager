@@ -4,10 +4,25 @@
 	"displayName": "Andy's Audio Manager",
 	"description": "Package containing the audio manager/controller. Be sure to read the readme for some useful info! Also if you want to use the test scene, all you need to do is move it from the Packages folder to the Assets folder. I'm not quite sure why that's the case, something to do with how the import from git works, but once you make the move it should work completely and totally!",
 	"unity": "2020.2",
-	"author":
-	{
+	"author": {
 		"name": "Andy Kennedy",
 		"email": "aek5594@psu.edu",
 		"url": ""
+	}
+	{
+
+		"samples": 
+		[
+			{
+
+				"displayName": "Audio Manager Sample Scene",
+
+				"description": "Contains the Audio Manager, and an example object with a complete list of sources, clips, and a script containing button input functionality for quick testing.",
+
+				"path": "Samples~/TestScene"
+
+			}
+		]
+
 	}
 }
