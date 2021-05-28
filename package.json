@@ -1,6 +1,6 @@
 {
 	"name": "com.andykennedy-github.audiomanager",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"displayName": "Andy's Audio Manager",
 	"description": "Package containing the audio manager.",
 	"unity": "2020.2",
@@ -17,7 +17,7 @@
 
 				"description": "Contains the Audio Manager, and an example object with a complete list of sources, clips, and a script containing button input functionality for quick testing.",
 
-				"path": "Samples/TestScene"
+				"path": "Samples~/Demo"
 
 			}
 		]
