@@ -16,7 +16,7 @@
 		"Samples",
 		"Editor"
 	],
-	"samples": [
+	"Samples": [
 		{
 			"displayName": "Audio Manager Sample Scene",
 
