@@ -8,12 +8,5 @@
 		"name": "Andy Kennedy",
 		"email": "aek5594@psu.edu",
 		"url": "https://sites.psu.edu/andykennedy/"
-	},
-	"files": [
-		"*.md",
-		"*.meta",
-		"*.asmdef",
-		"Samples",
-		"Editor"
-	]
+	}
 }
