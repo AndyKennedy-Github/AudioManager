@@ -13,7 +13,7 @@
 		{
 			"displayName": "Audio Manager Demo",
 			"description": "A scene to fool around in with the Audio Manager.",
-			"path": "Samples/Demo"
+			"path": "Samples~/Demo"
 		}
 	]
 }
