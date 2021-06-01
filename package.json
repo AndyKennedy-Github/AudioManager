@@ -13,7 +13,7 @@
 		"*.md",
 		"*.meta",
 		"*.asmdef",
-		"Samples~",
+		"Samples",
 		"Editor"
 	],
 	"samples": [
@@ -22,7 +22,7 @@
 
 			"description": "Contains the Audio Manager, and an example object with a complete list of sources, clips, and a script containing button input functionality for quick testing.",
 
-			"path": "Samples~/Demo"
+			"path": "Samples/Demo"
 
 		}
 	]
