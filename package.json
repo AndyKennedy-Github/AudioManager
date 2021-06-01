@@ -8,5 +8,12 @@
 		"name": "Andy Kennedy",
 		"email": "aek5594@psu.edu",
 		"url": "https://sites.psu.edu/andykennedy/"
-	}
+	},
+	"samples": [
+		{
+			"displayName": "Audio Manager Demo",
+			"description": "A scene to fool around in with the Audio Manager.",
+			"path": "Samples/Demo"
+		}
+	]
 }
