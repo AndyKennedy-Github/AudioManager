@@ -29,3 +29,5 @@ If set to true, then the AudioObject will play or stop while using a Lerp to inc
 ### Delay
 If set to a float, then the Action will being once the time has been passed in the Coroutine.
 
+### Loop
+If set to true, then the AudioSource of the AudioJob will be set to true, and the clip will loop.
