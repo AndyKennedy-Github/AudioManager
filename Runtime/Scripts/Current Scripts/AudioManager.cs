@@ -5,19 +5,25 @@ using UnityEngine;
 
 namespace aek.Audio
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AudioManager : MonoBehaviour
     {
+        //! Set this to true to show log messages in the console to track progression of AudioManager
         public bool debug;
 
-        //Set this to create the default audio source
+        //! Set this to create the default audio source
         public AudioSource m_source;
 
-        //Holds a reference to all Audio Sources you want to pull from
+        //! Holds a reference to all Audio Sources you want to pull from
         public List<AudioSource> sources = new List<AudioSource>();
 
-        //Holds a reference to all the clips you want to use in the scene
+        //! Holds a reference to all the clips you want to use in the scene
         public List<AudioObject> clips = new List<AudioObject>();
 
+        //! AudioObject constructor
+        //! Allows you to search clips via a name and index as opposed to just using an index with a list of regular clips
         [System.Serializable]
         public class AudioObject
         {
@@ -25,6 +31,8 @@ namespace aek.Audio
             public AudioClip clip;
         }
 
+        //! AudioJob constructor
+        //! The constructor that gets read in by the Coroutine 'RunAudioJob'
         private class AudioJob
         {
             public AudioAction action;
@@ -33,28 +41,31 @@ namespace aek.Audio
             public int index;
             public bool fade;
             public float delay;
+            public bool loop;
 
 
-            public AudioJob(AudioAction _action, AudioSource _source, string _name, bool _fade, float _delay)
+            public AudioJob(AudioAction _action, AudioSource _source, string _name, bool _fade, float _delay, bool _loop)
             {
                 action = _action;
                 source = _source;
                 name = _name;
                 fade = _fade;
                 delay = _delay;
+                loop = _loop;
             }
 
-            public AudioJob(AudioAction _action, AudioSource _source, int _index, bool _fade, float _delay)
+            public AudioJob(AudioAction _action, AudioSource _source, int _index, bool _fade, float _delay, bool _loop)
             {
                 action = _action;
                 source = _source;
                 index = _index;
                 fade = _fade;
                 delay = _delay;
-
+                loop = _loop;
             }
         }
 
+        //! A list of actions the AudioManager can perform, can be added to and modified further
         private enum AudioAction
         {
             START,
@@ -64,30 +75,38 @@ namespace aek.Audio
 
 
         #region Public Functions
-
-        public void PlayAudio(string _name, AudioSource _source = null, bool _fade = false, float _delay = 0.0f)
+        /// <summary>
+        /// A list of the functions that are referenced by objects in code.
+        /// The functions are doubled because you should be able to search a 
+        /// clip by its name or its index.
+        /// </summary>
+        /// <param name="_name"></param>
+        /// <param name="_source"></param>
+        /// <param name="_fade"></param>
+        /// <param name="_delay"></param>
+        public void PlayAudio(string _name, AudioSource _source = null, bool _fade = false, float _delay = 0.0f, bool _loop = false)
         {
-            AddJob(new AudioJob(AudioAction.START, _source, _name, _fade, _delay));
+            AddJob(new AudioJob(AudioAction.START, _source, _name, _fade, _delay, _loop));
         }
-        public void PlayAudio(int _index, AudioSource _source = null, bool _fade = false, float _delay = 0.0f)
+        public void PlayAudio(int _index, AudioSource _source = null, bool _fade = false, float _delay = 0.0f, bool _loop = false)
         {
-            AddJob(new AudioJob(AudioAction.START, _source, _index, _fade, _delay));
+            AddJob(new AudioJob(AudioAction.START, _source, _index, _fade, _delay, _loop));
         }
-        public void StopAudio(string _name, AudioSource _source = null, bool _fade = false, float _delay = 0.0f)
+        public void StopAudio(string _name, AudioSource _source = null, bool _fade = false, float _delay = 0.0f, bool _loop = false)
         {
-            AddJob(new AudioJob(AudioAction.STOP, _source, _name, _fade, _delay));
+            AddJob(new AudioJob(AudioAction.STOP, _source, _name, _fade, _delay, _loop));
         }
-        public void StopAudio(int _index, AudioSource _source = null, bool _fade = false, float _delay = 0.0f)
+        public void StopAudio(int _index, AudioSource _source = null, bool _fade = false, float _delay = 0.0f, bool _loop = false)
         {
-            AddJob(new AudioJob(AudioAction.STOP, _source, _index, _fade, _delay));
+            AddJob(new AudioJob(AudioAction.STOP, _source, _index, _fade, _delay, _loop));
         }
-        public void RestartAudio(string _name, AudioSource _source = null, bool _fade = false, float _delay = 0.0f)
+        public void RestartAudio(string _name, AudioSource _source = null, bool _fade = false, float _delay = 0.0f, bool _loop = false)
         {
-            AddJob(new AudioJob(AudioAction.RESTART, _source, _name, _fade, _delay));
+            AddJob(new AudioJob(AudioAction.RESTART, _source, _name, _fade, _delay, _loop));
         }
-        public void RestartAudio(int _index, AudioSource _source = null, bool _fade = false, float _delay = 0.0f)
+        public void RestartAudio(int _index, AudioSource _source = null, bool _fade = false, float _delay = 0.0f, bool _loop = false)
         {
-            AddJob(new AudioJob(AudioAction.RESTART, _source, _index, _fade, _delay));
+            AddJob(new AudioJob(AudioAction.RESTART, _source, _index, _fade, _delay, _loop));
         }
 
         public AudioClip GetAudioClip(string _name)
@@ -105,6 +124,13 @@ namespace aek.Audio
         #endregion
 
         #region Private Functions
+        /// <summary>
+        /// Where the magic happens. The coroutine takes a job,
+        /// reads all of its parameters, then adjusts what action it
+        /// takes on the clip and source depending on the parameters set.
+        /// </summary>
+        /// <param name="_job"></param>
+        /// <returns></returns>
         private IEnumerator RunAudioJob(AudioJob _job)
         {
             yield return new WaitForSeconds(_job.delay);
@@ -127,6 +153,8 @@ namespace aek.Audio
                 Log(clips[_job.index].name);
                 _job.source.clip = clips[_job.index].clip;
             }
+
+            _job.source.loop = _job.loop;
 
             switch (_job.action)
             {
@@ -161,6 +189,7 @@ namespace aek.Audio
 
                 if (_job.action == AudioAction.STOP)
                 {
+                    _job.source.loop = false;
                     _job.source.Stop();
                 }
             }
@@ -172,8 +201,6 @@ namespace aek.Audio
 
         private void AddJob(AudioJob _job)
         {
-            
-            //start job
             IEnumerator _jobRunner = RunAudioJob(_job);
             StartCoroutine(_jobRunner);
             Log("Starting job on [" + _job.name + "] with the operation: " + _job.action);

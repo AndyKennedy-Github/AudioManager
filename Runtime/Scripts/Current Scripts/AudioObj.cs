@@ -22,7 +22,7 @@ namespace aek.Audio
         {
             if(Input.GetKeyDown(KeyCode.A))
             {
-                am.PlayAudio(0, source);
+                am.PlayAudio(0, source, false, 0, true);
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
