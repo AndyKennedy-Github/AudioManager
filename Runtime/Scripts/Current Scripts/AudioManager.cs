@@ -6,7 +6,7 @@ using UnityEngine;
 namespace aek.Audio
 {
     /// <summary>
-    /// 
+    /// The script that handles Audio in the scene.
     /// </summary>
     public class AudioManager : MonoBehaviour
     {

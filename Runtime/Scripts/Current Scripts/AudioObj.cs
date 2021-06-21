@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace aek.Audio
 {
+    /// <summary>
+    /// A simple script to hold your reference to your game manager and can be easily edited
+    /// to fit your needs.
+    /// </summary>
     [RequireComponent(typeof(AudioSource))]
     public class AudioObj : MonoBehaviour
     {
@@ -11,11 +15,6 @@ namespace aek.Audio
 
         [SerializeField]
         private AudioSource source;
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
 
         // Update is called once per frame
         void Update()
