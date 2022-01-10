@@ -23,14 +23,6 @@ namespace aek.Audio
             {
                 am.PlayAudio(0, source, false, 0, true);
             }
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                am.PlayAudio(0);
-            }
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                am.RestartAudio("Correct");
-            }
         }
     }
 }

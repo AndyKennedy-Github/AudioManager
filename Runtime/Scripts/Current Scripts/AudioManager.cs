@@ -108,6 +108,30 @@ namespace aek.Audio
         {
             AddJob(new AudioJob(AudioAction.RESTART, _source, _index, _fade, _delay, _loop));
         }
+        public void PlayAudio(string _name, int _source = 0, bool _fade = false, float _delay = 0.0f, bool _loop = false)
+        {
+            AddJob(new AudioJob(AudioAction.START, sources[_source], _name, _fade, _delay, _loop));
+        }
+        public void PlayAudio(int _index, int _source = 0, bool _fade = false, float _delay = 0.0f, bool _loop = false)
+        {
+            AddJob(new AudioJob(AudioAction.START, sources[_source], _index, _fade, _delay, _loop));
+        }
+        public void StopAudio(string _name, int _source = 0, bool _fade = false, float _delay = 0.0f, bool _loop = false)
+        {
+            AddJob(new AudioJob(AudioAction.STOP, sources[_source], _name, _fade, _delay, _loop));
+        }
+        public void StopAudio(int _index, int _source = 0, bool _fade = false, float _delay = 0.0f, bool _loop = false)
+        {
+            AddJob(new AudioJob(AudioAction.STOP, sources[_source], _index, _fade, _delay, _loop));
+        }
+        public void RestartAudio(string _name, int _source = 0, bool _fade = false, float _delay = 0.0f, bool _loop = false)
+        {
+            AddJob(new AudioJob(AudioAction.RESTART, sources[_source], _name, _fade, _delay, _loop));
+        }
+        public void RestartAudio(int _index, int _source = 0, bool _fade = false, float _delay = 0.0f, bool _loop = false)
+        {
+            AddJob(new AudioJob(AudioAction.RESTART, sources[_source], _index, _fade, _delay, _loop));
+        }
 
         public AudioClip GetAudioClip(string _name)
         {
@@ -135,13 +159,13 @@ namespace aek.Audio
         {
             yield return new WaitForSeconds(_job.delay);
 
-           
-            if(_job.source == null)
+
+            if (_job.source == null)
             {
                 _job.source = m_source;
             }
             Log("Current Audio Source is: " + _job.source);
-            if(_job.name != null)
+            if (_job.name != null)
             {
                 Log(_job.name);
                 Log(GetAudioClip(_job.name).name);
@@ -205,7 +229,7 @@ namespace aek.Audio
             StartCoroutine(_jobRunner);
             Log("Starting job on [" + _job.name + "] with the operation: " + _job.action);
         }
-       
+
         private void Log(string _msg)
         {
             if (!debug) return;
